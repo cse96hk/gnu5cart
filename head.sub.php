@@ -122,6 +122,13 @@ header("Pragma: no-cache"); // HTTP/1.0
     if (!defined('G5_IS_ADMIN'))
         echo $config['cf_add_script'];
     ?>
+    <script>
+        document.addEventListener('mousemove', function(e) {
+            var cursor = document.getElementById('custom-cursor');
+            cursor.style.left = e.pageX + 'px';
+            cursor.style.top = e.pageY + 'px';
+        });
+    </script>
 </head>
 <body<?php echo isset($g5['body_script']) ? $g5['body_script'] : ''; ?>>
     <?php
@@ -134,3 +141,24 @@ header("Pragma: no-cache"); // HTTP/1.0
         echo '<div id="hd_login_msg">' . $sr_admin_msg . get_text($member['mb_nick']) . '님 로그인 중 ';
         echo '<a href="' . G5_BBS_URL . '/logout.php">로그아웃</a></div>';
     }
+    ?>
+    <div id="custom-cursor"></div>
+    <style>
+        #custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid 255, 215, 0, 0.6;
+            border-radius: 50%;
+            position: absolute;
+            pointer-events: none;
+            transition: transform 0.1s ease;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 215, 0, 0.6);
+            /* 반투명한 배경 설정 */
+            z-index: 1000;
+        }
+
+        body {
+            cursor: none;
+        }
+    </style>
